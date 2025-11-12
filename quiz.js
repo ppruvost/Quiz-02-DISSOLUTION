@@ -8,10 +8,7 @@
 // =============================
 // Variables globales
 // =============================
-let user = {
-  nom: "",
-  prenom: "",
-};
+let user = { nom: "", prenom: "" };
 let current = 0;
 let score = 0;
 
@@ -35,11 +32,9 @@ document.getElementById("startQuiz").addEventListener("click", () => {
 
   showQuestion();
 });
-
 // =============================
 // Questions du quiz
 // =============================
-const questions = [
 const questions = [
   {
     question: "1. Que signifie le terme 'dissolution' en chimie ?",
@@ -284,20 +279,13 @@ function validateAnswer() {
   }
 
   current++;
-  setTimeout(showQuestion, 10000); // 10s avant la question suivante
+  setTimeout(showQuestion, 10000);
   if (current >= questions.length) {
-  endQuiz();
-  return;
-}
+    endQuiz();
+    return;
+  }
   document.getElementById("score").innerText = `Score actuel : ${score} / ${questions.length}`;
 }
-
-// =============================
-// Initialisation EmailJS (à faire une seule fois)
-// =============================
-(function() {
-  emailjs.init("TJHX0tkW1CCz7lv7a"); // ta clé publique
-})();
 
 // =============================
 // Fin du quiz + Envoi du mail
@@ -307,15 +295,13 @@ function endQuiz() {
   document.getElementById("score").innerText = `Résultat final : ${score} / ${questions.length}`;
   document.getElementById("explication").innerHTML = "";
 
-  // Préparation des données à envoyer
   const emailParams = {
     nom: user.nom,
     prenom: user.prenom,
     score: `${score} / ${questions.length}`,
-    email: "patrick.pruvost50@gmail.com" // destinataire fixe
+    email: "patrick.pruvost50@gmail.com"
   };
 
-  // Envoi via EmailJS
   emailjs
     .send("service_cgh817y", "template_ly7s41e", emailParams)
     .then(() => {
@@ -326,6 +312,3 @@ function endQuiz() {
       alert("Erreur lors de l’envoi : " + JSON.stringify(error));
     });
 }
-
-
-
